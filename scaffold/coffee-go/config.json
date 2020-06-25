@@ -25,5 +25,20 @@
       "items" : ["false", "true"],
       "label" : "Delivery? "
     }
+  ],
+  "outputs": [
+    {
+      "name": "V1",
+      "print": true
+    },
+    {
+      "name": "V2",
+      "print": false
+    },
+    {
+      "name": "V3",
+      "print": true
+    }
   ]
 }
+
