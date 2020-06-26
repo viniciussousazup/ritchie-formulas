@@ -2,7 +2,7 @@ package main
 
 import (
 	"coffee/pkg/coffee"
-	"fmt"
+	"encoding/json"
 	"io/ioutil"
 	"os"
 	"strconv"
@@ -12,17 +12,24 @@ func main() {
 	coffee.GiveMeSomeCoffee(loadInputs())
 }
 
+type output struct {
+	V1 string
+	V2 string
+	V3 string
+}
+
 func loadInputs() coffee.Inputs {
 	delivery, _ := strconv.ParseBool(os.Getenv("DELIVERY"))
 	name := os.Getenv("NAME")
 	coffeeType := os.Getenv("COFFEE_TYPE")
-	output := os.Getenv("RIT_OUTPUT_FILE")
-	fmt.Println("Teste Teste ")
-	ioutil.WriteFile(output, []byte("V1=a;V2=b;V3=c;V4=d"), 0755)
-	os.Setenv("RIT_OUTPUT_FILE", "teste1")
-	fmt.Printf("f:%s=%s\n","RIT_OUTPUT_FILE",os.Getenv("RIT_OUTPUT_FILE"))
-	os.Setenv("TESTE_ENV", "teste2")
-	fmt.Printf("f:%s=%s\n","TESTE_ENV",os.Getenv("TESTE_ENV"))
+
+	outputF := os.Getenv("RIT_OUTPUT_FILE")
+	json, _ := json.Marshal(output{
+		V1: "a",
+		V2: "b",
+		V3: "c;",
+	})
+	ioutil.WriteFile(outputF, json, 0755)
 
 	return coffee.Inputs{
 		Name:       name,
