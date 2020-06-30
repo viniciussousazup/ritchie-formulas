@@ -28,16 +28,13 @@
   ],
   "outputs": [
     {
-      "name": "V1",
-      "print": true
+      "name": "V1"
     },
     {
-      "name": "V2",
-      "print": false
+      "name": "V2"
     },
     {
-      "name": "V3",
-      "print": true
+      "name": "V3"
     }
   ]
 }
