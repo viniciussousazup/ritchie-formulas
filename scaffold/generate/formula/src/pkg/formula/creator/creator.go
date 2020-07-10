@@ -20,7 +20,14 @@ type CreateManager struct {
 }
 
 func NewCreator() CreateManager {
-	return CreateManager{}
+	tplM := template.NewManager()
+	file := stream.NewFileManager()
+	dir := stream.NewDirManager(file)
+	return CreateManager{
+		tplM: tplM,
+		file: file,
+		dir:  dir,
+	}
 }
 
 func (c CreateManager) Create(cf formula.Create) error {
@@ -37,7 +44,7 @@ func (c CreateManager) Create(cf formula.Create) error {
 		return err
 	}
 
-	if err := c.applyLangTemplate(formulaPath, cf.Lang, cf.OutPutDir); err != nil {
+	if err := c.applyLangTemplate(cf.Lang, formulaPath); err != nil {
 		return err
 	}
 
@@ -62,7 +69,7 @@ func (c CreateManager) createHelpFiles(formulaCmdName, outPutDir string) error {
 	return nil
 }
 
-func (c CreateManager) applyLangTemplate(lang, outPutDir, formulaPath string) error {
+func (c CreateManager) applyLangTemplate(lang, formulaPath string) error {
 
 	tFiles, err := c.tplM.LangTemplateFiles(lang)
 	if err != nil {
@@ -71,8 +78,11 @@ func (c CreateManager) applyLangTemplate(lang, outPutDir, formulaPath string) er
 
 	for _, f := range tFiles {
 		if f.IsDir {
-			newPath := resolverNewPath(f.Path, outPutDir, formulaPath)
-			err := c.dir.Create(newPath)
+			newPath, err := c.tplM.ResolverNewPath(f.Path, formulaPath, lang)
+			if err != nil {
+				return err
+			}
+			err = c.dir.Create(newPath)
 			if err != nil {
 				return err
 			}
@@ -81,7 +91,12 @@ func (c CreateManager) applyLangTemplate(lang, outPutDir, formulaPath string) er
 			if err != nil {
 				return err
 			}
-			newPath := resolverNewPath(f.Path, outPutDir, formulaPath)
+			newPath, err := c.tplM.ResolverNewPath(f.Path, formulaPath, lang)
+			if err != nil {
+				return err
+			}
+			newDir, _ := path.Split(newPath)
+			c.dir.Create(newDir)
 			err = c.file.Write(newPath, tpl)
 			if err != nil {
 				return err
@@ -90,8 +105,4 @@ func (c CreateManager) applyLangTemplate(lang, outPutDir, formulaPath string) er
 	}
 
 	return nil
-}
-
-func resolverNewPath(oldPath, outPutDir, formulaPath string) string {
-	return strings.Replace(oldPath, outPutDir, formulaPath, 1)
 }

@@ -11,7 +11,9 @@ import (
 
 func TestCreateManager_Create(t *testing.T) {
 
-	tplM := template.NewManagerCustom("/home/vinicius.sousa/go/src/github.com/viniciussousazup/ritchie-formulas/scaffold/generate/formula/src/templates")
+	tplM := template.NewManagerCustom(
+		"/home/vinicius.sousa/go/src/github.com/viniciussousazup/ritchie-formulas/scaffold/generate/formula/src/templates",
+	)
 
 	file := stream.NewFileManager()
 	dir := stream.NewDirManager(file)

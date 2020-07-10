@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"strings"
 )
 
 const (
@@ -19,6 +20,7 @@ type Manager interface {
 	TemplateDir() (string, error)
 	Languages() ([]string, error)
 	LangTemplateFiles(lang string) ([]File, error)
+	ResolverNewPath(oldPath, newDir, lang string) (string, error)
 }
 
 type File struct {
@@ -36,6 +38,15 @@ func NewManagerCustom(templateDir string) Manager {
 
 type DefaultManager struct {
 	templateDir string
+}
+
+func (tm DefaultManager) ResolverNewPath(oldPath, newDir, lang string) (string, error) {
+	tplD, err := tm.TemplateDir()
+	if err != nil {
+		return "", err
+	}
+	oldDir := path.Join(tplD, lang)
+	return strings.Replace(oldPath, oldDir, newDir, 1), nil
 }
 
 func (tm DefaultManager) Languages() ([]string, error) {
@@ -79,7 +90,9 @@ func (tm DefaultManager) TemplateDir() (string, error) {
 
 	for _, f := range files {
 		if f.Name() == templateDirName && f.IsDir() {
-			return path.Join(dir, templateDirName), nil
+			result := path.Join(dir, templateDirName)
+			tm.templateDir = result
+			return result, nil
 		}
 	}
 

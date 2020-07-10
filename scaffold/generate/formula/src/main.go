@@ -15,11 +15,13 @@ func main() {
 	inputTextValidator := prompt.NewSurveyTextValidator()
 	inputList := prompt.NewSurveyList()
 	inputBool := prompt.NewSurveyBool()
+	inputText := prompt.NewSurveyText()
 	templateManager := template.NewManager()
 
 	generateFormulaCmd := cmd.NewCreateFormulaCmd(
 		currentDir,
 		inputTextValidator,
+		inputText,
 		inputList,
 		inputBool,
 		templateManager,

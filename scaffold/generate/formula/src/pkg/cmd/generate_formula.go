@@ -29,6 +29,7 @@ type GenerateFormulaCmd struct {
 func NewCreateFormulaCmd(
 	currentDIr string,
 	inTextValidator prompt.InputTextValidator,
+	inText prompt.InputText,
 	inList prompt.InputList,
 	inBool prompt.InputBool,
 	tplM template.Manager,
@@ -39,6 +40,7 @@ func NewCreateFormulaCmd(
 		inList:          inList,
 		inBool:          inBool,
 		tplM:            tplM,
+		inText:          inText,
 	}
 }
 
