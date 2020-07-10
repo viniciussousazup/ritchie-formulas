@@ -15,7 +15,7 @@ BIN_FOLDER_WINDOWS=$(BIN_FOLDER)/windows
 BIN_WINDOWS=$(BIN_FOLDER_WINDOWS)/$(BIN_NAME).exe
 
 
-build: go-build sh-unix bat-windows copy-templates
+build: go-build sh-unix bat-windows
 
 go-build:
 	mkdir -p $(BIN_FOLDER_DARWIN) $(BIN_FOLDER_LINUX) $(BIN_FOLDER_WINDOWS)
@@ -42,7 +42,4 @@ bat-windows:
 	echo 'echo start /B /WAIT $(BIN_NAME).exe' >> $(BAT)
 
 test:
-	$(GOTEST) -short `go list ./... | grep -v vendor/`
-
-copy-templates:
-	cp -r templates $(BIN_FOLDER)
+	$(GOTEST) -short ` + "`go list ./... | grep -v vendor/`

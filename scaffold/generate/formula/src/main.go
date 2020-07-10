@@ -1,18 +1,33 @@
 package main
 
 import (
-    "os"
-	"formula/pkg/formula"
+	"formula/pkg/cmd"
+	"formula/pkg/formula/template"
+	"formula/pkg/prompt"
+	"os"
 )
 
 func main() {
-	input1 := os.Getenv("SAMPLE_TEXT")
-	input2 := os.Getenv("SAMPLE_LIST")
-	input3 := os.Getenv("SAMPLE_BOOL")
 
-	formula.Input{
-    	Text:    input1,
-    	List:    input2,
-    	Boolean: input3,
-    }.Run()
+	currentDir := os.Getenv("CURRENT_PWD")
+
+	// prompt
+	inputTextValidator := prompt.NewSurveyTextValidator()
+	inputList := prompt.NewSurveyList()
+	inputBool := prompt.NewSurveyBool()
+	templateManager := template.NewManager()
+
+	generateFormulaCmd := cmd.NewCreateFormulaCmd(
+		currentDir,
+		inputTextValidator,
+		inputList,
+		inputBool,
+		templateManager,
+	)
+
+	err := generateFormulaCmd.Run()
+	if err != nil {
+		panic(err)
+	}
+
 }
