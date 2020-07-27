@@ -10,7 +10,7 @@ node-build:
 	cp -r src/* $(BIN_FOLDER)
 	npm install --silent --prefix $(BIN_FOLDER)
 	echo '#!/bin/sh' > $(BIN_FOLDER)/$(BINARY_NAME_UNIX)
-	echo 'node "$$(dirname "$$0")"/index.js' >>  $(BIN_FOLDER)/$(BINARY_NAME_UNIX)
+	echo 'node ./index.js' >>  $(BIN_FOLDER)/$(BINARY_NAME_UNIX)
 	echo 'node index.js' > $(BIN_FOLDER)/$(BINARY_NAME_WINDOWS)
 	chmod +x $(BIN_FOLDER)/$(BINARY_NAME_UNIX)
 

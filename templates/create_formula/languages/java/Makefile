@@ -18,7 +18,7 @@ java-build:
 
 sh-unix:
 	echo '#!/bin/sh' > $(SH)
-	echo 'java -jar "$$(dirname "$$0")"/$(JAR_FILE)' >> $(SH)
+	echo 'java -jar ./$(JAR_FILE)' >> $(SH)
 	chmod +x $(SH)
 
 bat-windows:

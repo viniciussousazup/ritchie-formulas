@@ -14,7 +14,7 @@ SET BAT_FILE=%BIN_FOLDER%\run.bat
 :BAT_WINDOWS
     echo @ECHO OFF > %BAT_FILE%
     echo SET mypath=%%~dp0 >> %BAT_FILE%
-    echo start /B /WAIT python %%mypath:~0,-1%%/main.py >> %BAT_FILE%
+    echo start /B /WAIT python ./main.py > %BAT_FILE%
 
 :CP_DOCKER
     copy Dockerfile %BIN_FOLDER%

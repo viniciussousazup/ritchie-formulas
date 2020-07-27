@@ -12,9 +12,7 @@ SET BAT_FILE=%BIN_FOLDER%\run.bat
     GOTO DONE
 
 :BAT_WINDOWS
-    echo @ECHO OFF > %BAT_FILE%
-    echo SET mypath=%%~dp0 >> %BAT_FILE%
-    echo start /B /WAIT php -f %%mypath:~0,-1%%/index.php >> %BAT_FILE%
+    echo start /B /WAIT php -f ./index.php > %BAT_FILE%
 
 :CP_DOCKER
     copy Dockerfile %BIN_FOLDER%
