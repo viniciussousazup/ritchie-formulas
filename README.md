@@ -10,16 +10,37 @@ This repository contains the community formulas which can be executed by the [ri
 
 ## Create a new formula
 
-1. Fork the repository.
-1. Create a branch:`git checkout -b <branch_name>`
-1. Create a new formula, using the
- forked repository as a Ritchie workspace: `rit create formula`
+- Fork the repository.
+- Create a branch:
+
+```bash
+git checkout -b <branch_name>`
+```
+
+- Create a new formula, using the
+ forked repository as a Ritchie workspace:
+
+```bash
+ rit create formula
+```
+
  if you need help please visit [how to create formulas on Ritchie](https://docs.ritchiecli.io/getting-started/creating-formulas)
-1. Build and use the new formula: `rit build formula`
- or use --watch to watch changes on formula code: `rit build formula --watch`
-1. Commit your implementation.
-1. Push your branch.
-1. Open a pull request on the repository for analysis.
+
+- Build and use the new formula:
+
+```bash
+rit build formula
+```
+
+ or use --watch to watch changes on formula code:
+
+```bash
+rit build formula --watch
+```
+
+- Commit your implementation.
+- Push your branch.
+- Open a pull request on the repository for analysis.
 
 ## Add support to other languages on create formula command
 
